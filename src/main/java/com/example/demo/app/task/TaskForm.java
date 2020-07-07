@@ -11,6 +11,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 public class TaskForm {
 
+	//1桁の整数　　少数桁数0、1桁で渡されたかどうか
     @Digits(integer = 1, fraction = 0)
     private int typeId;
 

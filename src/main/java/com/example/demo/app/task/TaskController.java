@@ -82,6 +82,7 @@ public class TaskController {
         
     	Task task = makeTask(taskForm, 0);
     	
+    	//エラーがなければ
         if (!result.hasErrors()) {
         	
         	//一件挿入後リダイレクト
@@ -89,6 +90,7 @@ public class TaskController {
         	
         	return "redirect:/task";
 
+        	//エラーがあった場合
         } else {
             taskForm.setNewTask(true);
             model.addAttribute("taskForm", taskForm);
@@ -119,6 +121,7 @@ public class TaskController {
         Optional<TaskForm> taskFormOpt = taskOpt.map(t -> makeTaskForm(t));
         
         //TaskFormがnullでなければ中身を取り出し
+        //isPresentで中身が入っているか確認
         if(taskFormOpt.isPresent()) {
         	taskForm = taskFormOpt.get();
         }
@@ -145,8 +148,10 @@ public class TaskController {
     public String update(
     	@Valid @ModelAttribute TaskForm taskForm,
     	BindingResult result,
+    	//hiddenの受け取りはRequestParamを使う
     	@RequestParam("taskId") int taskId,
     	Model model,
+    	//セッションを一度だけ使う
     	RedirectAttributes redirectAttributes) {
         
     	//TaskFormのデータをTaskに格納

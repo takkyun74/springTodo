@@ -89,6 +89,7 @@ public class TaskDaoImpl implements TaskDao {
 //		Optional<Task> taskOpt = null;
 		
 		//taskをOptionalでラップする
+		//ofNUllable ヌルになっているかもしれないよの注意書き
 		Optional<Task> taskOpt = Optional.ofNullable(task);
 		
 		return taskOpt;
