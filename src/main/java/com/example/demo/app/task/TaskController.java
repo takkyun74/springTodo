@@ -24,7 +24,7 @@ import com.example.demo.service.TaskService;
  * ToDoアプリ
  */
 @Controller
-@RequestMapping("/task")
+@RequestMapping("/")
 public class TaskController {
 
     private final TaskService taskService;
