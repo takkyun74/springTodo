@@ -24,7 +24,7 @@ import com.example.demo.service.TaskService;
  * ToDoアプリ
  */
 @Controller
-@RequestMapping("/task")
+@RequestMapping("/")
 public class TaskController {
 
     private final TaskService taskService;
@@ -88,7 +88,7 @@ public class TaskController {
         	//一件挿入後リダイレクト
         	taskService.insert(task);
         	
-        	return "redirect:/task";
+        	return "redirect:/";
 
         	//エラーがあった場合
         } else {
@@ -164,7 +164,7 @@ public class TaskController {
         	taskService.update(task);
         	redirectAttributes.addFlashAttribute("complete", "変更が完了しました");
         	
-            return "redirect:/task/" + taskId;
+            return "redirect:/" + taskId;
             
         } else {
             model.addAttribute("taskForm", taskForm);
@@ -189,7 +189,7 @@ public class TaskController {
     	//タスクを一件削除しリダイレクト
     	taskService.deleteById(id);
     	
-        return "redirect:/task";
+        return "redirect:/";
     }
 
     /**

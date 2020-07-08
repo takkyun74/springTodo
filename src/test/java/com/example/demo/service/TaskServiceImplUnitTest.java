@@ -40,17 +40,22 @@ class TaskServiceImplUnitTest {
     	
     	//空のリスト
     	List<Task> list = new ArrayList<>();
-    	 	
+    	
+    	//findAll()には空のリストが想定される
+    	// ここで決められたルールが実行されるだけ
         // モッククラスのI/Oをセット（findAll()の型と異なる戻り値はNG）
         when(dao.findAll()).thenReturn(list);
 
+        //ここでのfindAll()は上のfindAll()を呼び出しているようなもの
         // サービスを実行
         List<Task> actualList= taskServiceImpl.findAll();
 
         // モックの指定メソッドの実行回数を検査
+        //このdaoがfindAll()を実行した場合、一回だけ呼び出されたことの確認
         verify(dao, times(1)).findAll();
 
         // 戻り値の検査(expected, actual)
+        //リストは空のはずなので0
         assertEquals(0, actualList.size());
         
     }

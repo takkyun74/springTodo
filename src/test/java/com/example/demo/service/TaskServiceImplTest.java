@@ -40,6 +40,7 @@ class TaskServiceImplTest {
     	//全件取得
     	List<Task> list = taskService.findAll();
 
+    	//デフォルトで2件用意されているため
         //Taskテーブルに入っている2件が取得できているか確認
     	assertEquals(2, list.size());
     }
@@ -52,7 +53,7 @@ class TaskServiceImplTest {
         Optional<Task> taskOpt = taskService.getTask(1);
         
         //取得できたことを確認
-        assertEquals("JUnitを学習", taskOpt.get().getTitle());
+        assertEquals("テストの仕方を学習する", taskOpt.get().getDetail());
     }
     
 
