@@ -37,7 +37,7 @@
 		<td th:text=${obj.taskType.type}></td>
 		<td><a type="button" th:href="@{/task/{id}(id=${obj.id})}">編集</a></td>
 		<td>
-			<form method="POST" th:action="@{/task/delete}">
+			<form method="POST" th:action="@{/delete}">
 			<input type="hidden" name="taskId" th:value="${obj.id}">
 			<input type="submit" value="削除">
 			</form>
@@ -46,7 +46,7 @@
 </table>
 </div>
 
-<p th:unless="${taskForm.isNewTask}"><a href="#" th:href="@{/task}">戻る</a></p>
+<p th:unless="${taskForm.isNewTask}"><a href="#" th:href="@{/}">戻る</a></p>
 
 </body>
 </html>

@@ -53,7 +53,7 @@ public class TaskController {
         model.addAttribute("list", list);
         model.addAttribute("title", "タスク一覧");
 
-        return "task/index";
+        return "/index";
     }
 
     /**
@@ -88,7 +88,7 @@ public class TaskController {
         	//一件挿入後リダイレクト
         	taskService.insert(task);
         	
-        	return "redirect:/task";
+        	return "redirect:/";
 
         	//エラーがあった場合
         } else {
@@ -97,7 +97,7 @@ public class TaskController {
             List<Task> list = taskService.findAll();
             model.addAttribute("list", list);
             model.addAttribute("title", "タスク一覧（バリデーション）");
-            return "task/index";
+            return "/index";
         }
     }
 
@@ -132,7 +132,7 @@ public class TaskController {
         model.addAttribute("taskId", id);
         model.addAttribute("title", "更新用フォーム");
 
-        return "task/index";
+        return "/index";
     }
     
     /**
@@ -169,7 +169,7 @@ public class TaskController {
         } else {
             model.addAttribute("taskForm", taskForm);
             model.addAttribute("title", "タスク一覧");
-            return "task/index";
+            return "/index";
         }
         
         
@@ -189,7 +189,7 @@ public class TaskController {
     	//タスクを一件削除しリダイレクト
     	taskService.deleteById(id);
     	
-        return "redirect:/task";
+        return "redirect:/";
     }
 
     /**
