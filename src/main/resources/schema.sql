@@ -15,13 +15,4 @@ CREATE TABLE task (
   PRIMARY KEY (id)
 ) ;
 
-CREATE TABLE user (
-  id int(11) NOT NULL AUTO_INCREMENT,
-  username varchar(50) NOT NULL,
-  email varchar(70) NOT NULL,
-  password varchar(60) NOT NULL,
-  enabled tinyint(1) NOT NULL,
-  authority varchar(50) NOT NULL,
-  tempkey varchar(255) DEFAULT NULL,
-  PRIMARY KEY (id)
-);
+CREATE TABLE USER(ID INT PRIMARY KEY AUTO_INCREMENT, NAME VARCHAR(64) NOT NULL, PASSWORD VARCHAR(64) NOT NULL);
