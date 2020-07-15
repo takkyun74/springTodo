@@ -4,11 +4,22 @@ package com.example.demo.entity;
  * ログインに必要な会員情報を格納するクラス。
  */
 public class Account {
+	
+	private int id;
 
     private String name;
 
     private String password;
 
+    
+    
+    public int getId() {
+    	return id;
+    }
+    public void setId(int id) {
+    	this.id = id;
+    }
+    
     public String getName() {
         return name;
     }

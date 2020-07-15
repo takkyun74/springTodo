@@ -2,21 +2,20 @@ package com.example.demo.app.task;
 import java.util.List;
 import java.util.Optional;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.example.demo.entity.Account;
 import com.example.demo.entity.Task;
+import com.example.demo.service.RegisterMemberService;
 import com.example.demo.service.TaskService;
 
 /**
@@ -29,11 +28,16 @@ public class TopController {
 
     private final TaskService taskService;
 
+    private final RegisterMemberService registerMemberService;
+    
     @Autowired
-    public TopController(TaskService taskService) {
+    public TopController(TaskService taskService,
+    		RegisterMemberService registerMemberService) {
         this.taskService = taskService;
+		this.registerMemberService = registerMemberService;
     }
 
+    
 
     /**
      * タスクの一覧を表示します
@@ -42,7 +46,22 @@ public class TopController {
      * @return resources/templates下のHTMLファイル名
      */
     @GetMapping
-    public String task(TaskForm taskForm, Model model) {
+    public String task(
+    		@AuthenticationPrincipal User user,
+    		Account account,
+    		TaskForm taskForm, Model model) {
+    	
+    	
+    	
+    	String userName = user.getUsername();
+    	Optional<Account> accountOpt = registerMemberService.getAccount(userName);
+        
+        //TaskFormがnullでなければ中身を取り出し
+        //isPresentで中身が入っているか確認
+        if(accountOpt.isPresent()) {
+        	account = accountOpt.get();
+        }
+        model.addAttribute("userId", account.getId());
     	
     	//新規登録か更新かを判断する仕掛け
         taskForm.setNewTask(true);
@@ -50,8 +69,9 @@ public class TopController {
         //Taskのリストを取得する
         List<Task> list = taskService.findAll();
         
+
         model.addAttribute("list", list);
-        model.addAttribute("title", "タスク一覧");
+        model.addAttribute("title", "全ユーザータスク一覧");
 
         return "top";
     }
@@ -101,39 +121,39 @@ public class TopController {
 //        }
 //    }
 
-//    /**
-//     * 一件タスクデータを取得し、フォーム内に表示
-//     * @param taskForm
-//     * @param id
-//     * @param model
-//     * @return
-//     */
-//    @GetMapping("/{id}")
-//    public String showUpdate(
-//    	TaskForm taskForm,
-//        @PathVariable int id,
-//        Model model) {
-//
-//    	//Taskを取得(Optionalでラップ)
-//        Optional<Task> taskOpt = taskService.getTask(id);
-//        
-//        //TaskFormへの詰め直し
-//        Optional<TaskForm> taskFormOpt = taskOpt.map(t -> makeTaskForm(t));
-//        
-//        //TaskFormがnullでなければ中身を取り出し
-//        //isPresentで中身が入っているか確認
-//        if(taskFormOpt.isPresent()) {
-//        	taskForm = taskFormOpt.get();
-//        }
-//		
-//        model.addAttribute("taskForm", taskForm);
-//        List<Task> list = taskService.findAll();
-//        model.addAttribute("list", list);
-//        model.addAttribute("taskId", id);
-//        model.addAttribute("title", "更新用フォーム");
-//
-//        return "top/index";
-//    }
+    /**
+     * 一件タスクデータを取得し、フォーム内に表示
+     * @param taskForm
+     * @param id
+     * @param model
+     * @return
+     */
+    @GetMapping("/{id}")
+    public String showUpdate(
+    	TaskForm taskForm,
+        @PathVariable int id,
+        Model model) {
+
+    	//Taskを取得(Optionalでラップ)
+        Optional<Task> taskOpt = taskService.getTask(id);
+        
+        //TaskFormへの詰め直し
+        Optional<TaskForm> taskFormOpt = taskOpt.map(t -> makeTaskForm(t));
+        
+        //TaskFormがnullでなければ中身を取り出し
+        //isPresentで中身が入っているか確認
+        if(taskFormOpt.isPresent()) {
+        	taskForm = taskFormOpt.get();
+        }
+		
+        model.addAttribute("taskForm", taskForm);
+        List<Task> list = taskService.findAll();
+        model.addAttribute("list", list);
+        model.addAttribute("taskId", id);
+        model.addAttribute("title", "更新用フォーム");
+
+        return "top/index";
+    }
     
 //    /**
 //     * タスクidを取得し、一件のデータ更新

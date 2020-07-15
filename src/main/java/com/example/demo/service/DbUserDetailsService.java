@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.entity.Account;
-import com.example.demo.entity.DbUserDetails;
 import com.example.demo.repository.LoginDao;
 
 @Service
@@ -23,10 +22,10 @@ public class DbUserDetailsService implements UserDetailsService {
 
     @Override
     @Transactional(readOnly = true)
-    public UserDetails loadUserByUsername(String mailAddress)
+    public UserDetails loadUserByUsername(String userName)
             throws UsernameNotFoundException {
         //DBからユーザ情報を取得。
-        Account account = loginDao.findAccount(mailAddress)
+        Account account = loginDao.findAccount(userName)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found."));
 
         return new DbUserDetails(account, getAuthorities(account));

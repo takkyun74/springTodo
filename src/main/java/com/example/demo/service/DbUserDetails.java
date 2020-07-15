@@ -1,11 +1,14 @@
-package com.example.demo.entity;
+package com.example.demo.service;
 
 import java.util.Collection;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
+import com.example.demo.entity.Account;
+
 public class DbUserDetails extends User {
+	private static final long serialVersionUID = 1L;
     //ユーザ情報。
     private final Account account;
 

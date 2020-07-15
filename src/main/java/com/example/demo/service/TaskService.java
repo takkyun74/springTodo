@@ -7,6 +7,8 @@ import com.example.demo.app.task.TaskForm;
 import com.example.demo.entity.Task;
 
 public interface TaskService {
+	
+	List<Task> findPart(int userId);
 
 	List<Task> findAll();
 	

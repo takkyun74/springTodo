@@ -7,6 +7,9 @@
 <body>
 <h1 th:text="${title}">ようこそ</h1>
 <p th:if="${complete}" th:text="${complete}"></p>
+<body>
+<p th:text="${#authentication.principal.username}"></p>
+</body>
 <form method="POST" th:action="${taskForm.isNewTask}? @{/task/insert} : @{/task/update}" th:object="${taskForm}">
 	<label>タスクタイプ（選択してください）：</label>
 	<select name="typeId">
@@ -25,6 +28,8 @@
 	<input type="datetime-local" name="deadline" th:value="*{deadline}" /><br>
 	<div th:if="${#fields.hasErrors('deadline')}" th:errors="*{deadline}"></div>
 	<input  th:if="${taskId}" type="hidden" name="taskId" th:value="${taskId}">
+	<input  th:if="${userId}" type="hidden" name="userId" th:value="${userId}">
+	<!-- <div th:text="${userId}">test</div> -->
 	<input type="submit" value="送信">
 </form>
 <div th:if="${taskForm.isNewTask}" style="margin:10px">
@@ -47,7 +52,9 @@
 </div>
 
 <p th:unless="${taskForm.isNewTask}"><a href="#" th:href="@{/task}">戻る</a></p>
-<a href="#" th:href="@{/login?logout}">ログアウト</a>
-
+<form class="form-signin" th:action="@{/login?logout}" method="post">
+        <button class="btn btn-lg btn-primary btn-block" type="submit">ログアウト</button>
+</form>
+<a href="#" th:href="@{/top}">トップ画面に戻る</a>
 </body>
 </html>

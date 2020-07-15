@@ -14,6 +14,8 @@ public class TaskForm {
 	//1桁の整数　　少数桁数0、1桁で渡されたかどうか
     @Digits(integer = 1, fraction = 0)
     private int typeId;
+    
+    private int userId;
 
     @NotNull (message = "タイトルを入力してください。")
     @Size(min = 1, max = 20, message="20文字以内で入力してください。")
@@ -32,6 +34,7 @@ public class TaskForm {
     public TaskForm() {}
 
 	public TaskForm(int typeId,
+			int userId,
 			String title,
 			String detail, 
 			LocalDateTime deadline,
@@ -50,6 +53,15 @@ public class TaskForm {
 	public void setTypeId(int typeId) {
 		this.typeId = typeId;
 	}
+	
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+	
 
 	public String getTitle() {
 		return title;

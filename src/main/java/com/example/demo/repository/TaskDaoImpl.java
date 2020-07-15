@@ -23,6 +23,45 @@ public class TaskDaoImpl implements TaskDao {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 	
+	//リストを指定して返す
+	@Override
+	public List<Task> findPart(int userId) {
+		
+		String sql = "SELECT task.id, user_id, type_id, title, detail, deadline, "
+				+ "type, comment FROM task "
+				+ "INNER JOIN task_type ON task.type_id = task_type.id"
+				+" WHERE user_id = ? ";
+				
+		//タスク一覧をMapのListで取得
+		List<Map<String, Object>> resultList = jdbcTemplate.queryForList(sql, userId);
+		
+		//return用の空のListを用意
+		List<Task> list = new ArrayList<Task>();
+		
+		//二つのテーブルのデータをTaskにまとめる
+		for(Map<String, Object> result : resultList) {
+			
+			Task task = new Task();
+			task.setId((int)result.get("id"));
+			task.setUserId((int)result.get("user_id"));
+			task.setTypeId((int)result.get("type_id"));
+			task.setTitle((String)result.get("title"));
+			task.setDetail((String)result.get("detail"));
+			task.setDeadline(((Timestamp) result.get("deadline")).toLocalDateTime());
+			
+			TaskType type = new TaskType();
+			type.setId((int)result.get("type_id"));
+			type.setType((String)result.get("type"));
+			type.setComment((String)result.get("comment"));
+			
+			//TaskにTaskTypeをセット
+			task.setTaskType(type);
+			
+			list.add(task);
+		}
+		return list;
+	}
+	
 	//リストを返す
 	@Override
 	public List<Task> findAll() {

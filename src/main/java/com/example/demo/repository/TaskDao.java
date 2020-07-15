@@ -9,6 +9,8 @@ import com.example.demo.entity.Task;
 
 public interface TaskDao{
 	
+	List<Task> findPart(int userId);
+	
 	List<Task> findAll();
 	
 	Optional<Task> findById(int id);

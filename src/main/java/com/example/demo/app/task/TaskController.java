@@ -5,6 +5,8 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,8 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.example.demo.entity.Account;
 import com.example.demo.entity.Task;
 import com.example.demo.service.TaskService;
+import com.example.demo.service.RegisterMemberService;
 
 /**
  * ToDoアプリ
@@ -27,12 +31,17 @@ import com.example.demo.service.TaskService;
 public class TaskController {
 
     private final TaskService taskService;
+    
+    private final RegisterMemberService registerMemberService;
 
     @Autowired
-    public TaskController(TaskService taskService) {
+    public TaskController(TaskService taskService,
+    		RegisterMemberService registerMemberService) {
         this.taskService = taskService;
+        this.registerMemberService = registerMemberService;
     }
 
+    
 
     /**
      * タスクの一覧を表示します
@@ -41,19 +50,51 @@ public class TaskController {
      * @return resources/templates下のHTMLファイル名
      */
     @GetMapping
-    public String task(TaskForm taskForm, Model model) {
+    public String task(
+    		@AuthenticationPrincipal User user,
+    		Account account,
+    		TaskForm taskForm, Model model) {
+    	
+    	
+    	String userName = user.getUsername();
+    	Optional<Account> accountOpt = registerMemberService.getAccount(userName);
+        
+        //TaskFormがnullでなければ中身を取り出し
+        //isPresentで中身が入っているか確認
+        if(accountOpt.isPresent()) {
+        	account = accountOpt.get();
+        }
+        model.addAttribute("userId", account.getId());
     	
     	//新規登録か更新かを判断する仕掛け
         taskForm.setNewTask(true);
         
         //Taskのリストを取得する
-        List<Task> list = taskService.findAll();
+        List<Task> list = taskService.findPart(account.getId());
         
         model.addAttribute("list", list);
-        model.addAttribute("title", "タスク一覧");
+        model.addAttribute("title", "ユーザーごとタスク一覧");
 
         return "task/index";
     }
+    
+//    @GetMapping
+//    public String showUserId(
+//    		@AuthenticationPrincipal User user,
+//    		Account account,
+//    		Model model) {
+//    	
+//    	String userName = user.getUsername();
+//    	Optional<Account> accountOpt = registerMemberService.getAccount(userName);
+//        
+//        //TaskFormがnullでなければ中身を取り出し
+//        //isPresentで中身が入っているか確認
+//        if(accountOpt.isPresent()) {
+//        	account = accountOpt.get();
+//        }
+//        model.addAttribute("account", account);
+//    	return "/task/index";
+//    }
 
     /**
      * タスクデータを一件挿入
@@ -100,6 +141,8 @@ public class TaskController {
         }
     }
 
+
+    
     /**
      * 一件タスクデータを取得し、フォーム内に表示
      * @param taskForm
@@ -202,7 +245,7 @@ public class TaskController {
         if(taskId != 0) {
         	task.setId(taskId);
         }
-        task.setUserId(1);
+        task.setUserId(taskForm.getUserId());
         task.setTypeId(taskForm.getTypeId());
         task.setTitle(taskForm.getTitle());
         task.setDetail(taskForm.getDetail());
