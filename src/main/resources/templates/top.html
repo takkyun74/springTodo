@@ -52,7 +52,7 @@
 </table>
 </div>
 
-<p th:unless="${taskForm.isNewTask}"><a href="#" th:href="@{/top}">戻る</a></p>
+<p th:unless="${taskForm.isNewTask}"><a href="#" th:href="@{/}">戻る</a></p>
 <form class="form-signin" th:action="@{/login?logout}" method="post">
         <button class="btn btn-lg btn-primary btn-block" type="submit">ログアウト</button>
 </form>

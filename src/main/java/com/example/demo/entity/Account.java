@@ -10,10 +10,26 @@ public class Account {
     private String name;
 
     private String password;
+    
+    private String roles;
+    
+    private int enable_flag;
 
     
     
-    public int getId() {
+    public String getRoles() {
+		return roles;
+	}
+	public void setRoles(String roles) {
+		this.roles = roles;
+	}
+	public int getEnable_flag() {
+		return enable_flag;
+	}
+	public void setEnable_flag(int enable_flag) {
+		this.enable_flag = enable_flag;
+	}
+	public int getId() {
     	return id;
     }
     public void setId(int id) {

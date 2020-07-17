@@ -13,9 +13,10 @@ public class LoginController {
 	 */
 	@RequestMapping("/login")
 	public String showLoginForm(Model model) {
+		
 
 		//ログイン画面。
-		return "Login";
+		return "login";
 	}
 
 //	/**

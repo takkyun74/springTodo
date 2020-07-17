@@ -35,6 +35,8 @@ public class MemberRegistrationController {
 
 		entity.setUserName(memberRegistrationForm.getUserName());
 		entity.setPassword(memberRegistrationForm.getPassword());
+		entity.setRoles("ROLE_USER");
+		
 
 		//USERテーブルにinsertする。
 		registMemberService.registerMember(entity);

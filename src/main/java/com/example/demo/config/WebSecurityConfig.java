@@ -29,14 +29,14 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .loginProcessingUrl("/authenticate")
             .usernameParameter("userName")
             .passwordParameter("password")
-            .defaultSuccessUrl("/top")
+            .defaultSuccessUrl("/")
             .permitAll();
 
         //会員登録機能実装時に追加
         http.authorizeRequests()
-            .antMatchers("/RegistrationForm").permitAll()
-            .antMatchers("/Register").permitAll()
-            .antMatchers("/Result").permitAll()
+            .antMatchers("/RegistrationForm", "/", "/task", "/management", "/Result", "/edit").permitAll()
+            .antMatchers("/management/user/**").hasRole("USER")
+            .antMatchers("/management/admin/**").hasRole("ADMIN")
             
             .anyRequest().authenticated();
     }

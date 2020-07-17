@@ -23,7 +23,7 @@ import com.example.demo.service.TaskService;
  * 一覧
  */
 @Controller
-@RequestMapping("/top")
+@RequestMapping("/")
 public class TopController {
 
     private final TaskService taskService;
