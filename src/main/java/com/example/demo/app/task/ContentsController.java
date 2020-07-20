@@ -18,7 +18,6 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @RequestMapping(value = "members")
 @Slf4j
-@Secured("IS_AUTHENTICATED_FULLY")
 public class ContentsController {
   private final ContentsService contentsService;
 

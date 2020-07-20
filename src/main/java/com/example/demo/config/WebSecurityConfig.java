@@ -34,9 +34,9 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         //会員登録機能実装時に追加
         http.authorizeRequests()
-            .antMatchers("/RegistrationForm", "/", "/task", "/management", "/Result", "/edit").permitAll()
-            .antMatchers("/management/user/**").hasRole("USER")
-            .antMatchers("/management/admin/**").hasRole("ADMIN")
+            .mvcMatchers("/RegistrationForm", "/", "/task", "/management", "/Result", "/edit").permitAll()
+            .mvcMatchers("/members/user").hasRole("USER")
+            .mvcMatchers("/members/admin").hasRole("ADMIN")
             
             .anyRequest().authenticated();
     }
