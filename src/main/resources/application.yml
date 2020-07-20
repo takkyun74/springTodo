@@ -4,8 +4,6 @@ spring:
     driverClassName: org.mariadb.jdbc.Driver
     username: $DB_USER
     password: root
-  jpa:
-    database: MYSQL
-    hibernate.ddl-auto: update
+
 
 
