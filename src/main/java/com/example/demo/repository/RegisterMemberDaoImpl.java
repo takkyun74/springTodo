@@ -95,7 +95,7 @@ public class RegisterMemberDaoImpl implements RegisterMemberDao {
 	
 	@Override
 	public int update(Account account) {
-		if(account.getPassword().isEmpty() && account.getPassword() == null) {
+		if(account.getPassword().isEmpty() || account.getPassword() == null) {
 			return jdbcTemplate.update("UPDATE user SET id = ?, name = ?, roles = ?, enable_flag = ? WHERE id = ?",
 					account.getId(), account.getName(), account.getRoles(), account.getEnable_flag(),account.getId());
 			

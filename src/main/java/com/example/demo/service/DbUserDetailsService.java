@@ -28,6 +28,7 @@ public class DbUserDetailsService implements UserDetailsService {
         Account account = loginDao.findAccount(userName)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found."));
 
+//        return new DbUserDetails(account, getAuthorities(account));
         return new DbUserDetails(account, getAuthorities(account));
     }
 
@@ -37,8 +38,10 @@ public class DbUserDetailsService implements UserDetailsService {
      * @return 権限の範囲のリスト。
      */
     private Collection<GrantedAuthority> getAuthorities(Account account) {
+    	
+    	String auth = account.getRoles();
         //認証が通った時にユーザに与える権限の範囲を設定する。
-        return AuthorityUtils.createAuthorityList("ROLE_USER");
+        return AuthorityUtils.createAuthorityList(auth);
     }
 
 }

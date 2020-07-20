@@ -1,0 +1,127 @@
+@charset "UTF-8";
+
+body {
+  border-top: 5px solid #345c39;
+  font-family:  "メイリオ",  Meiryo;
+  width: 1050px;
+  margin: 0 auto;
+}
+
+a {
+	text-decoration: none;
+}
+
+/* header {
+  width: 960px;
+  height: 49px;
+  background-color: red;
+  padding: 20px 0;
+  position: relative;
+} */
+
+/* ========================================
+    login
+========================================= */
+
+.login {
+	/* background-color: red; */
+	text-align: center;
+}
+
+.new {
+	text-decoration: none;
+	/* background-color: blue; */
+	margin-left: 50px;
+}
+
+/* ========================================
+    top
+========================================= */
+
+.top {
+	/* background-color: red; */
+	text-align: center;
+}
+
+div table {
+	/* background-color: green; */
+	margin: 0 auto;
+}
+
+/* ========================================
+    index
+========================================= */
+
+.index {
+	/* background-color: red; */
+	text-align: center;
+}
+
+.newTask {
+	background-color: pink;
+}
+
+.title {
+	margin-right: 115px;
+}
+
+.detail {
+	margin-right: 145px;
+}
+
+.deadline {
+	margin-right: 90px;
+}
+
+input#submit {
+	margin-top: 10px;
+}
+
+/* ========================================
+    management
+========================================= */
+h1 {
+	text-align: center;
+}
+
+.session {
+	float: right;
+	/* background-color: red; */
+}
+
+.contents {
+	/* background-color: green; */
+	padding-top: 5px;
+	padding-bottom: 67px;
+}
+/* 
+.little {
+	background-color: pink;
+	
+} */
+
+tbody {
+	/* background-color: green; */
+}
+
+.medit {
+	text-decoration: none;
+	display: inline-block;
+
+}
+
+/* ========================================
+    edit
+========================================= */
+.edit {
+	text-align: center;
+}
+
+.user {
+	margin-right: 72px;
+}
+
+.password {
+	margin-right: 73px;
+}
+	

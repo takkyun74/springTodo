@@ -63,7 +63,7 @@ public class RegisterMemberServiceImpl implements RegisterMemberService {
 
 	@Override
 	public void update(Account account) {
-		if (account.getPassword().isEmpty() && account.getPassword() == null) {
+		if (account.getPassword().isEmpty() || account.getPassword() == null) {
 			if (registerMemberDao.update(account) == 0) {
 				throw new TaskNotFoundException("更新するアカウントが存在しません");
 			}

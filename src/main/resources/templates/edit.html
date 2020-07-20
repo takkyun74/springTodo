@@ -2,31 +2,35 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+<!-- <link th:href="@{/css/destyle.css}" rel="stylesheet" type="text/css"> -->
+     <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
 <title>ユーザー編集画面</title>
 </head>
 <body>
-<p>test</p>
+<!-- <header></header> -->
+<a href="#" th:href="@{/management}">ユーザー管理画面に戻る</a>
+<a href="#" th:href="@{/}">トップ画面に戻る</a>
 <h1 th:text="${title}">ユーザー編集画面</h1>
 <p th:if="${complete}" th:text="${complete}"></p>
-
+<div class="edit">
 <form method="POST" th:action="@{/edit/update}" th:object="${memberForm}">
 	<label>権限を（選択してください）：</label>
 	<select name="roles">
 	<option value="ROLE_ADMIN" th:selected="*{roles == 1}">Admin</option>
 	<option value="ROLE_USER" th:selected="*{roles == 2}">User</option>
-	<option value="ADMIN&USER" th:selected="*{roles == 3}">Admin&User</option>
+	<option value="ROLE_ADMIN,ROLE_USER" th:selected="*{roles == 3}">Admin&User</option>
 	</select><br>
 	<div th:if="${#fields.hasErrors('roles')}" th:errors="*{roles}"></div>
 	<label>ユーザー名：</label>
-	<input type="text" name="userName" th:value="*{userName}" /><br>
+	<input class="user" type="text" name="userName" th:value="*{userName}" /><br>
 	<div th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"></div>
 	<label>password：</label>
-	<input type="text" name="password" /><br>
-	<!-- <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div> -->
-	<select name="enable_flag">
-	<option value="1" th:selected="*{enable_flag == 1}">公開</option>
-	<option value="2" th:selected="*{enable_flag == 2}">停止</option>
-	</select><br>
+	<input class="password" type="text" name="password" placeholder="必ず入れてね"/><br>
+	<div th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+	<!-- <select name="enable_flag">
+	<option value="1" th:selected="*{enable_flag == TRUE}">公開</option>
+	<option value="2" th:selected="*{enable_flag == FALSE}">停止</option>
+	</select><br> -->
 	<input  th:if="${id}" type="hidden" name="id" th:value="${id}">
 	<input type="submit" value="更新">
 </form>
@@ -49,7 +53,6 @@
 		</td>
 	</tr>
 </table> -->
-<a href="#" th:href="@{/management}">ユーザー管理画面に戻る</a>
-<a href="#" th:href="@{/}">トップ画面に戻る</a>
+</div>
 </body>
 </html>

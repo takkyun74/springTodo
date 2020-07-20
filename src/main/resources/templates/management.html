@@ -2,13 +2,15 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+<!-- <link th:href="@{/css/destyle.css}" rel="stylesheet" type="text/css"> -->
+     <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
 <title>ユーザー管理画面</title>
 </head>
 <body>
-	<header th:if="${successMessage != null}">
-		<p role="alert" th:text="${successMessage}">successMessage</p>
-	</header>
-	
+	<!-- <header>
+	</header> -->
+<a href="#" th:href="@{/}">トップ画面に戻る</a>
+<a th:href="@{/login?logout}">ログアウト</a>
 	<h1>ユーザー管理画面</h1>
 	<div>
 		<div>
@@ -25,12 +27,9 @@
 						th:text="${#authentication.principal.password}">password</span>*******</li>
 
 				</ul>
-				<div>
-					<a th:href="@{/login?logout}">logout</a>
-				</div>
-			</div>
-			<div>
-					<a th:href="@{/edit}">ユーザー編集</a>
+<!-- 				<div>
+					<a th:href="@{/login?logout}">ログアウト</a>
+				</div> -->
 			</div>
 			<div sec:authorize="!isAuthenticated()">
 				<div>
@@ -39,7 +38,7 @@
 			</div>
 		</div>
 	</div>
-	<div>
+	<div class="session">
 		<div>
 			<h5>
 				<strong>セッション</strong>
@@ -47,77 +46,48 @@
 			<div>
 				<ul>
 					<th:block th:if="${#session != null}">
-						<li>sessionId: <span
-							th:text="${#session.id}"></span></li>
+						<li>sessionId: <span th:text="${#session.id}"></span></li>
 						<li>lastAccessedTime: <span
 							th:text="${#session.lastAccessedTime}"></span></li>
 						<li>maxInactiveInterval: <span
 							th:text="${#session.maxInactiveInterval}"></span></li>
 					</th:block>
-					<li
-						th:switch="${#request.isRequestedSessionIdFromCookie()}">
-						RequestedSessionIdFromCookie : <span th:case="${true}">yes</span> <span th:case="${false}">no</span>
+					<li th:switch="${#request.isRequestedSessionIdFromCookie()}">
+						RequestedSessionIdFromCookie : <span th:case="${true}">yes</span>
+						<span th:case="${false}">no</span>
 					</li>
-					<li 
-						th:switch="${#request.isRequestedSessionIdFromURL()}">
-						RequestedSessionIdFromURL : <span th:case="${true}">yes</span> <span th:case="${false}">no</span>
+					<li th:switch="${#request.isRequestedSessionIdFromURL()}">
+						RequestedSessionIdFromURL : <span th:case="${true}">yes</span> <span
+						th:case="${false}">no</span>
 					</li>
-					<li 
-						th:switch="${#request.isRequestedSessionIdValid()}">
-						RequestedSessionIdValid : <span th:case="${true}">yes</span> <span th:case="${false}">no</span>
+					<li th:switch="${#request.isRequestedSessionIdValid()}">
+						RequestedSessionIdValid : <span th:case="${true}">yes</span> <span
+						th:case="${false}">no</span>
 					</li>
 				</ul>
 			</div>
 		</div>
 	</div>
-	<div>
-		<div>
+	<div class="contents">
+		<div class="little">
 			<h5>
 				<strong>コンテンツ</strong>
 			</h5>
 			<div>
 				<ul>
-					<li><a th:href="@{/members/user}">user
-							role contents</a></li>
-					<li><a th:href="@{/members/admin}">admin
-							role contents</a></li>
-					<li><a th:href="@{/members/}">any
-							role contents</a></li>
+					<li><a th:href="@{/members/user}">user role contents</a></li>
+					<li><a th:href="@{/members/admin}">admin role contents</a></li>
+					<li><a th:href="@{/members/}">any role contents</a></li>
 				</ul>
 			</div>
 		</div>
 	</div>
-	<div>
-		<div>
-			<div>
-				<h5>
-					<strong>アカウント登録</strong>
-				</h5>
-				<div>
-					<!--  <form th:action="@{signup}" th:object="${signup}" method="POST">
-                            <div>
-                                <input type="text" th:field="*{name}" />
-                                <label for="name">name</label>
-                            </div>
-                            <div>
-                                <input type="text" th:field="*{email}" />
-                                <label for="email">email</label>
-                            </div>
-                            <div>
-                                <input  type="text" th:field="*{password}" />
-                                <label for="password">password</label>
-                            </div>
-                            <input type="submit" value="register" />
-                        </form> -->
-				</div>
-			</div>
-		</div>
 		<div>
 			<div>
 				<h5>
 					<strong>アカウント一覧</strong>
 				</h5>
-				
+
 				<!-- <p th:text="${title}">ようこそ</p> -->
 				<table>
 					<thead>
@@ -126,19 +96,27 @@
 							<th>Name</th>
 							<th>Password</th>
 							<th>Roles</th>
-							<th>Enable</th>
+							<!-- <th>Enable</th> -->
 						</tr>
 					</thead>
 					<tbody>
 						<tr th:each="account : ${list}">
-                            <td th:text="${account.id}">id</td>
-                            <td th:text="${account.name}">name</td>
-                            <td th:text="${account.password}">password</td>
-                            <td th:text="${account.roles}">roles</td>
-                            <td th:text="${account.enable_flag}">enable</td>
-                            <td><a type="button" th:href="@{/edit/{id}(id=${account.id})}">編集</a></td>
-                        </tr> 
+							<td th:text="${account.id}">id</td>
+							<td th:text="${account.name}">name</td>
+							<td th:text="${account.password}">password</td>
+							<td th:text="${account.roles}">roles</td>
+							<!-- <td th:text="${account.enable_flag}">enable</td> -->
+							<td><a type="button" class="medit"
+								th:href="@{/edit/{id}(id=${account.id})}">編集</a></td>
+								<td>
+							<form method="POST" th:action="@{/management/delete}">
+								<input  th:if="${account.id}" type="hidden" name="account.id" th:value="${account.id}">
+								<input  type="submit"value="削除">
+							</form>
+						</td>
+						</tr>
 					</tbody>
+
 				</table>
 			</div>
 		</div>

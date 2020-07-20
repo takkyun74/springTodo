@@ -21,13 +21,16 @@ public class LoginDaoImpl implements LoginDao {
 	
 	@Override
 	public Optional<Account> findAccount(String name) {
-		String sql =" SELECT NAME , PASSWORD FROM USER WHERE NAME = ?";
+		String sql =" SELECT ID, NAME , PASSWORD, ROLES, ENABLE_FLAG FROM USER WHERE NAME = ?";
 		
 		Map<String, Object> result = jdbcTemplate.queryForMap(sql, name);
 		
 		Account account = new Account();
+		account.setId((int)result.get("id"));
 		account.setName((String)result.get("name"));
 		account.setPassword((String)result.get("password"));
+		account.setRoles((String)result.get("roles"));
+		account.setEnable_flag((int)result.get("enable_flag"));
 		
 		Optional<Account> accOpt = Optional.ofNullable(account);
 		
