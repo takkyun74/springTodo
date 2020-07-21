@@ -11,7 +11,7 @@ public class LoginController {
 	/**
 	 * ログイン画面 に遷移する。
 	 */
-	@RequestMapping("/login")
+	@RequestMapping("/")
 	public String showLoginForm(Model model) {
 		
 

@@ -25,11 +25,11 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         //ログインページを指定。
         //ログインページへのアクセスは全員許可する。
         http.formLogin()
-            .loginPage("/login")
+            .loginPage("/")
             .loginProcessingUrl("/authenticate")
             .usernameParameter("userName")
             .passwordParameter("password")
-            .defaultSuccessUrl("/")
+            .defaultSuccessUrl("/top")
             .permitAll();
 
         //会員登録機能実装時に追加
