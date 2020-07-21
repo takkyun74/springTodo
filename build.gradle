@@ -43,12 +43,13 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-jdbc'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+    implementation 'org.mariadb.jdbc:mariadb-java-client:2.6.0'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa' 
+    
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     
-    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
-    
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-
     testImplementation('org.junit.jupiter:junit-jupiter-api:5.2.0')
     testImplementation('org.junit.jupiter:junit-jupiter-params:5.2.0')
     testImplementation('org.junit.jupiter:junit-jupiter-engine:5.2.0')
@@ -60,10 +61,9 @@ dependencies {
 	// Lombok
   	compileOnly 'org.projectlombok:lombok'
   	annotationProcessor 'org.projectlombok:lombok'
-	    
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'    
+	
 	runtimeOnly 'mysql:mysql-connector-java'
-	implementation 'org.mariadb.jdbc:mariadb-java-client:2.6.0'
+	
 }
 	
 
