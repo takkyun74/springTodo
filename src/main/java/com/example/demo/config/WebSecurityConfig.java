@@ -60,4 +60,5 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers("/images/**", "/js/**", "/css/**")
       ;
     }
+    
 }
