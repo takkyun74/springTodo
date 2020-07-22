@@ -12,7 +12,7 @@
 <a href="#" th:href="@{/top}">トップ画面に戻る</a>
 <a th:href="@{/?logout}">ログアウト</a>
 	<h1>ユーザー管理画面</h1>
-	<div>
+	<div class="user">
 		<div>
 			<h5>
 				<strong sec:authorize="isAuthenticated()">認証済み</strong> <strong
@@ -23,8 +23,8 @@
 
 					<li><strong>username : </strong><span
 						th:text="${#authentication.principal.username}">username</span></li>
-					<li><strong>password : </strong><span
-						th:text="${#authentication.principal.password}">password</span>*******</li>
+<!-- 					<li><strong>password : </strong><span
+						th:text="${#authentication.principal.password}">password</span>*******</li> -->
 
 				</ul>
 <!-- 				<div>
@@ -38,7 +38,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="session">
+<!-- 	<div class="session">
 		<div>
 			<h5>
 				<strong>セッション</strong>
@@ -67,7 +67,7 @@
 				</ul>
 			</div>
 		</div>
-	</div>
+	</div> -->
 	<div class="contents">
 		<div class="little">
 			<h5>
@@ -82,6 +82,7 @@
 			</div>
 		</div>
 	</div>
+	<div class="clear"></div> 
 		<div>
 			<div>
 				<h5>
@@ -103,7 +104,7 @@
 						<tr th:each="account : ${list}">
 							<td th:text="${account.id}">id</td>
 							<td th:text="${account.name}">name</td>
-							<td th:text="${account.password}">password</td>
+							<td id="pas" th:text="${account.password}">password</td>
 							<td th:text="${account.roles}">roles</td>
 							<!-- <td th:text="${account.enable_flag}">enable</td> -->
 							<td><a type="button" class="medit"
@@ -113,6 +114,9 @@
 								<input  th:if="${account.id}" type="hidden" name="account.id" th:value="${account.id}">
 								<input  type="submit"value="削除">
 							</form>
+							<input class="button" type="button" value="パスワードハッシュ化してます"
+							onclick="document.getElementById('pas').style.visibility = 'visible';">
+							<script type="text/javascript" th:src="@{/js/sample.js}"></script>
 						</td>
 						</tr>
 					</tbody>
@@ -121,5 +125,6 @@
 			</div>
 		</div>
 	</div>
+	
 </body>
 </html>

@@ -84,15 +84,24 @@ h1 {
 	text-align: center;
 }
 
-.session {
-	float: right;
+.user {
 	/* background-color: red; */
+	display: inline-block;
+	float: left;
+	padding-right: 300px;
+
 }
+
+/* .session {
+	float: right;
+	background-color: red;
+} */
 
 .contents {
 	/* background-color: green; */
-	padding-top: 5px;
-	padding-bottom: 67px;
+	display: inline-block;
+	margin-right: 300px;
+	float: right;
 }
 /* 
 .little {
@@ -109,6 +118,16 @@ tbody {
 	display: inline-block;
 
 }
+
+div.clear {
+  clear: both;
+}
+
+#pas{
+	visibility:hidden;
+}
+
+
 
 /* ========================================
     edit
